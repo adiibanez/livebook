@@ -14,11 +14,13 @@ defmodule Livebook.Notebook.AppSettings do
           access_type: access_type(),
           password: String.t() | nil,
           show_source: boolean(),
-          output_type: output_type()
+          output_type: output_type(),
+          layout: layout()
         }
 
   @type access_type :: :public | :protected
   @type output_type :: :all | :rich
+  @type layout :: :fullscreen | :default
 
   @access_types [:public, :protected]
 
@@ -33,6 +35,7 @@ defmodule Livebook.Notebook.AppSettings do
     field :password, :string
     field :show_source, :boolean
     field :output_type, Ecto.Enum, values: [:all, :rich]
+    field :layout, Ecto.Enum, values: [:fullscreen, :default]
   end
 
   @doc """
@@ -49,7 +52,8 @@ defmodule Livebook.Notebook.AppSettings do
       access_type: :protected,
       password: generate_password(),
       show_source: false,
-      output_type: :all
+      output_type: :all,
+      layout: :default
     }
   end
 
@@ -82,14 +86,16 @@ defmodule Livebook.Notebook.AppSettings do
       :auto_shutdown_ms,
       :access_type,
       :show_source,
-      :output_type
+      :output_type,
+      :layout
     ])
     |> validate_required([
       :slug,
       :multi_session,
       :access_type,
       :show_source,
-      :output_type
+      :output_type,
+      :layout
     ])
     |> validate_format(:slug, ~r/^[a-z0-9-]+$/,
       message: "should only contain lowercase alphanumeric characters and dashes"

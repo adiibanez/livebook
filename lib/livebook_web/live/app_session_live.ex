@@ -34,6 +34,9 @@ defmodule LivebookWeb.AppSessionLive do
   end
 
   def mount(%{"slug" => slug, "id" => session_id}, _session, socket) do
+    
+    app_layout = "fullscreen"
+    
     {:ok, app} = Livebook.Apps.fetch_app(slug)
     app_session = Enum.find(app.sessions, &(&1.id == session_id))
 
@@ -59,6 +62,7 @@ defmodule LivebookWeb.AppSessionLive do
        socket
        |> assign(
          slug: slug,
+         app_layout: app_layout,
          session: session,
          page_title: get_page_title(data.notebook.name),
          client_id: client_id,
@@ -106,9 +110,14 @@ defmodule LivebookWeb.AppSessionLive do
   end
 
   def render(assigns) when assigns.app_authenticated? and assigns.app_authorized? do
+    layout_class = case assigns.app_settings.layout do
+      :default -> "max-w-screen-lg "
+      :fullscreen -> ""
+    end
+    
     ~H"""
     <div class="h-full relative overflow-y-auto px-4 md:px-20" data-el-notebook>
-      <div class="w-full max-w-screen-lg py-4 mx-auto" data-el-notebook-content>
+      <div class="w-full {layout_class} py-4 mx-auto" data-el-notebook-content="">
         <div class="absolute md:fixed right-4 md:left-4 md:right-auto top-3">
           <.menu id="app-menu" position="bottom-right" md_position="bottom-left">
             <:toggle>
