@@ -10,7 +10,7 @@ on:
   workflow_dispatch:
 jobs:
   create_release:
-    if: github.repository == 'livebook-dev/livebook'
+    if: github.repository == 'adiibanez/livebook'
     name: "Create release"
     permissions:
       contents: write
@@ -45,7 +45,7 @@ jobs:
           fi
 
   desktop:
-    if: github.repository == 'livebook-dev/livebook'
+    if: github.repository == 'adiibanez/livebook'
     name: "Desktop"
     runs-on: ubuntu-latest
     env:
@@ -60,7 +60,7 @@ jobs:
           fi
 
   docker:
-    if: github.repository == 'livebook-dev/livebook'
+    if: github.repository == 'adiibanez/livebook'
     name: Docker (${{ matrix.name }})
     runs-on: ubuntu-latest
     strategy:
