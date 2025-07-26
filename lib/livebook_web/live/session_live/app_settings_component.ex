@@ -170,6 +170,8 @@ defmodule LivebookWeb.SessionLive.AppSettingsComponent do
       case AppSettings.update(app_settings, params) do
         {:ok, app_settings} ->
           Livebook.Session.set_app_settings(socket.assigns.session.pid, app_settings)
+          IO.inspect(app_settings, label: "#{__MODULE__} App settings")
+          IO.inspect(params, label: "#{__MODULE__} Params")
           app_settings
 
         {:error, _changeset} ->
