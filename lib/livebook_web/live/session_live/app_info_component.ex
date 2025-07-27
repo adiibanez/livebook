@@ -39,6 +39,10 @@ defmodule LivebookWeb.SessionLive.AppInfoComponent do
               {@settings.slug || "?"}
             </.labeled_text>
 
+            <.labeled_text label="Layout" one_line>
+              {@settings.layout}
+            </.labeled_text>
+
             <.labeled_text label="Session type" one_line>
               {if @settings.multi_session, do: "Multi", else: "Single"}
             </.labeled_text>
