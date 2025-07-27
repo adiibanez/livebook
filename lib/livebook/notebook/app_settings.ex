@@ -86,14 +86,16 @@ defmodule Livebook.Notebook.AppSettings do
       :auto_shutdown_ms,
       :access_type,
       :show_source,
-      :output_type
+      :output_type,
+      :layout
     ])
     |> validate_required([
       :slug,
       :multi_session,
       :access_type,
       :show_source,
-      :output_type
+      :output_type,
+      :layout
     ])
     |> validate_format(:slug, ~r/^[a-z0-9-]+$/,
       message: "should only contain lowercase alphanumeric characters and dashes"

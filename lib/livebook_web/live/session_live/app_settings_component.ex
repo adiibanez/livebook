@@ -93,6 +93,18 @@ defmodule LivebookWeb.SessionLive.AppSettingsComponent do
             }
           />
           <.checkbox_field
+            field={f[:layout]}
+            label="Fullscreen app layout"
+            checked_value="fullscreen"
+            unchecked_value="default"
+            help={
+              ~S'''
+              When enabled, renders app preview
+              in fullscreen mode.
+              '''
+            }
+          />
+          <.checkbox_field
             field={f[:output_type]}
             label="Only render rich outputs"
             checked_value="rich"
@@ -131,18 +143,6 @@ defmodule LivebookWeb.SessionLive.AppSettingsComponent do
               }
             />
           <% end %>
-          <.checkbox_field
-            field={f[:layout]}
-            label="Fullscreen app layout"
-            checked_value="fullscreen"
-            unchecked_value="default"
-            help={
-              ~S'''
-              When enabled, renders app preview
-              in fullscreen mode.
-              '''
-            }
-          />
         </div>
         <div class="mt-8 flex space-x-2">
           <.button disabled={not @changeset.valid?}>
